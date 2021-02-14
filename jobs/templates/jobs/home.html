@@ -25,7 +25,7 @@ View and Ediit Buttons:
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
-    <title> Cameron Davis</title>
+    <title> Cameron J. Davis</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
@@ -38,20 +38,17 @@ View and Ediit Buttons:
 
 
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+.img-with-text {
+    text-align: center;
+    width: [width of img];
+}
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+.img-with-text img {
+    display: block;
+    margin: 0 auto;
+}
+}
+</style>
 
     
   </head>
@@ -64,60 +61,91 @@ View and Ediit Buttons:
       <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
         <strong>Cameron J. Davis</strong>
       </a>
-     </div>
+    
+      <div class = 'row'> 
 
-     <div clasas="row">
+     <div class="col-sm">
       <a href="https://www.linkedin.com/in/cjdavis-uva/">
-         <img src="{% static 'linkedin_logo.jpeg' %}" height = 30> 
-       </img>
+         <img src="{% static 'linkedin_logo.jpeg' %}" height = 30> </img>
       </a>
+    </div>
+    <div class = 'col-sm'>
       <a href="https://github.com/cam-d12">
-         <img src="{% static 'github_logo.jpeg' %}" height = 30> 
-       </img>
-      </a>
-      <a href="mailto:camjordan1998@gmail.com"> 
-         <img src="{% static 'mail.jpeg' %}" height = 30> 
-       </img>
+         <img src="{% static 'github_logo.jpeg' %}" height = 30> </img>
       </a>
       </div>
-   
+      <div class = 'col-sm'>
+      <a href="mailto:camjordan1998@gmail.com"> 
+         <img src="{% static 'mail.jpeg' %}" height = 30> </img>
+      </a>
+      </div>
+      </div>
+   </div>
   </div>
+</div>
 </header>
 
 
 <main>
   <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">About Me</h1>
         <img src="{% static 'Cam.jpeg' %}" height = 300> </img>
-      </div>
-        <p class="lead text-muted"> Hello, my name is Cameron. I am currently a student at the University of Virginia pursing my B.S. in Computer Engineering. enjoy coding, making apps and websites both in an out of the classroom. Some of my other hobbies include cooking and yoga.</p>
-        
-    </div>
+        <p class="lead text-muted"> My name is Cameron and I am a fourth-year completing my B.S. in Computer Engineering at the University of Virginia. In my free time, I enjoy coding, making apps and websites, cooking, sports and yoga.</p>
   </section>
 
+<h1 class="fw-light text-center"><b>Software Experience</b></h1>
+<div class = 'container text-center'>
+  <div class = 'row'>
+    <div class= 'col-sm img-with-text'> 
+      <img src="{% static 'python_logo.png' %}" height = 100> Python </img> 
+    </div>
+    <div class= 'col-sm img-with-text'> 
+        <img src="{% static 'cpluslogo.png' %}" height = 100 > C++ </img>
+    </div>
+    <div class= 'col-sm img-with-text'> 
+           <img src="{% static 'jupyter_logo.png' %}" height = 100 > Juypter </img>
+    </div>
+  </div>
+  <div class='row'>
+    <div class= 'col-sm img-with-text'> 
+            <img src="{% static 'matlab_logo.jpeg' %}" height = 100 > MatLab </img> 
+    </div>
+    <div class= 'col-sm img-with-text'> 
+              <img src="{% static 'multisim.jpeg' %}" height = 100 > MultiSim </img>
+    </div>
+    <div class= 'col-sm img-with-text'> 
+                <img src="{% static 'sql_logo.png' %}" height = 100 > SQL </img>
+    </div>
+  </div>
+  <div class = 'row'>
+    <div class= 'col-sm img-with-text'> 
+                  <img src="{% static 'pandas.png' %}" height = 100 > Pandas</img>
+    </div>
+    <div class= 'col-sm img-with-text'> 
+                  <img src="{% static 'tensorflow_logo.png' %}" height = 100 > TensorFlow</img>
+    </div>
+    <div class= 'col-sm img-with-text'> 
+                      <img src="{% static 'travis_logo.png' %}" height = 100 > TravisCI</img>
+    </div>
+  </div>
+</div>
 
+    
 
-  <div class="album py-5 bg-light">
-    {% for job in jobs.all %}
-    <div class="container">
-        <div class="col">
+        
+       
+
+  < <div class="col">
+        <h1 class="fw-light">Previous Jobs and Projects</h1>
+     {% for job in jobs.all %}
         	<a href="{% url 'detail' job.id%}">
           <div class="card shadow-sm">
-          	<img src="{{job.image.url}}"></div>            
+          	<img src="{{job.image.url}}" height = 200 width=400></div>            
             <div class="card-body">
               <p class="card-text">{{ job.summary }}</p>
-            
             </div>
-          </div>
-          
-        </div>
-      </div>
-  
   </div>
   {% endfor %}
-
 </main>
 
 <!--
