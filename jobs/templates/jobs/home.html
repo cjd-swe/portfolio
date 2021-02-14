@@ -114,7 +114,7 @@ View and Ediit Buttons:
               <img src="{% static 'multisim.jpeg' %}" height = 100 > MultiSim </img>
     </div>
     <div class= 'col-sm img-with-text'> 
-                <img src="{% static 'sql_logo.png' %}" height = 100 > SQL </img>
+                <img src="{% static 'sql_bg.png' %}" height = 100 > SQL </img>
     </div>
   </div>
   <div class = 'row'>
@@ -131,7 +131,7 @@ View and Ediit Buttons:
 </div>       
 
   <div class="container">
-        <h1 class="fw-light text-center">Previous Jobs and Projects</h1>
+        <h1 class="fw-light text-center"><b>Previous Jobs and Projects</b></h1>
      {% for job in jobs.all %}
         	<a href="{% url 'detail' job.id%}">
           <div class="card shadow-sm img-with-text">
