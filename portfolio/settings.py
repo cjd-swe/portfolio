@@ -26,7 +26,7 @@ SECRET_KEY = 'afx9n(sgc)5(1*1uy&@rszind_f(2-42_h5+n27b-mpl&!t*wt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', 'young-chamber-40780.herokuapp.com/']
 
 
 # Application definition
