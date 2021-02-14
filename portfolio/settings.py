@@ -26,7 +26,7 @@ SECRET_KEY = 'afx9n(sgc)5(1*1uy&@rszind_f(2-42_h5+n27b-mpl&!t*wt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'young-chamber-40780.herokuapp.com/']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'young-chamber-40780.herokuapp.com']
 
 
 # Application definition
@@ -76,17 +76,25 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 #localhost = 127.0.0.1
+# 'USER': 'postgres',
+#'PASSWORD': 'OdietamO@85',
+#'HOST': 'localhost',
+#'PORT': '5432',
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'portfoliodb',
-        'USER': 'postgres',
-        'PASSWORD': 'OdietamO@85',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': 'de7il1kg5vblb',
+        'HOST' : 'ec2-3-222-11-129.compute-1.amazonaws.com',
+        'PORT' : '5432',
+        'USER' : 'zxatalxrofohut',
+        'PASSWORD' : '0027c054f2a681f51750810495c113f4bdfb544e94e6cd66fdcb308d7afa5820',
+       
 
     }
 }
+
+
 
 
 # Password validation
