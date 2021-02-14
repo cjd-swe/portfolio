@@ -88,7 +88,7 @@ View and Ediit Buttons:
 
 <main>
   <section class="py-5 text-center container">
-        <h1 class="fw-light">About Me</h1>
+        <h1 class="fw-light"><b>About Me</b></h1>
         <img src="{% static 'Cam.jpeg' %}" height = 300> </img>
         <p class="lead text-muted"> My name is Cameron and I am a fourth-year completing my B.S. in Computer Engineering at the University of Virginia. In my free time, I enjoy coding, making apps and websites, cooking, sports and yoga.</p>
   </section>
@@ -128,19 +128,14 @@ View and Ediit Buttons:
                       <img src="{% static 'travis_logo.png' %}" height = 100 > TravisCI</img>
     </div>
   </div>
-</div>
+</div>       
 
-    
-
-        
-       
-
-  < <div class="col">
-        <h1 class="fw-light">Previous Jobs and Projects</h1>
+  <div class="container">
+        <h1 class="fw-light text-center">Previous Jobs and Projects</h1>
      {% for job in jobs.all %}
         	<a href="{% url 'detail' job.id%}">
-          <div class="card shadow-sm">
-          	<img src="{{job.image.url}}" height = 200 width=400></div>            
+          <div class="card shadow-sm img-with-text">
+          	<img src="{{job.image.url}}" height = 200 width=400>           
             <div class="card-body">
               <p class="card-text">{{ job.summary }}</p>
             </div>
