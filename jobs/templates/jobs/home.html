@@ -1,178 +1,99 @@
-<!--
-	This is how to comment in HTML. Also this is a mix of HTML/Python below
---> 
+{% extends "jobs/base.html" %}
+{% load static %}
 
-<!--
-Create a button:
-<a href="#" class="btn btn-secondary my-2">Secondary action</a>
+{% block title %}Cameron J. Davis — Portfolio{% endblock %}
 
-View and Ediit Buttons: 
+{% block content %}
 
-  <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
--->
-
-
-<!doctype html>
-<html lang="en">
-{% load static%}
-
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.80.0">
-    <title> Cameron J. Davis</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-
-    
-
-    <!-- Bootstrap core CSS -->
-    <!-- for our project, it's easier to save these as static files in oru computer so we're nto reliant on the internet  -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-
-
-    <style>
-.img-with-text {
-    text-align: center;
-    width: [width of img];
-}
-
-.img-with-text img {
-    display: block;
-    margin: 0 auto;
-}
-}
-</style>
-
-    
-  </head>
-  <body>
-
-
-<header>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
-        <strong>Cameron J. Davis</strong>
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <p class="hero-eyebrow">Computer Engineering @ UVA</p>
+    <h1>Cameron J. Davis</h1>
+    <p class="hero-subtitle">
+      I build software &mdash; from machine learning pipelines to full-stack web apps.
+      Passionate about clean code, data, and making things that work.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/cam-d12" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+          <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+        </svg>
+        GitHub
       </a>
-    
-      <div class = 'row'> 
-
-     <div class="col-sm">
-      <a href="https://www.linkedin.com/in/cjdavis-uva/">
-         <img src="{% static 'linkedin_logo.jpeg' %}" height = 30> </img>
-      </a>
+      <a href="https://www.linkedin.com/in/cjdavis-uva/" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:camjordan1998@gmail.com" class="btn btn-secondary">Contact Me</a>
     </div>
-    <div class = 'col-sm'>
-      <a href="https://github.com/cam-d12">
-         <img src="{% static 'github_logo.jpeg' %}" height = 30> </img>
-      </a>
-      </div>
-      <div class = 'col-sm'>
-      <a href="mailto:camjordan1998@gmail.com"> 
-         <img src="{% static 'mail.jpeg' %}" height = 30> </img>
-      </a>
-      </div>
-      </div>
-   </div>
-  </div>
-</div>
-</header>
-
-
-<main>
-  <section class="py-5 text-center container">
-        <h1 class="fw-light">About Me</h1>
-        <img src="{% static 'Cam.jpeg' %}" height = 300> </img>
-        <p class="lead text-muted"> My name is Cameron and I am a fourth-year completing my B.S. in Computer Engineering at the University of Virginia. In my free time, I enjoy coding, making apps and websites, cooking, sports and yoga.</p>
   </section>
 
-<h1 class="fw-light text-center"><b>Software Experience</b></h1>
-<div class = 'container text-center'>
-  <div class = 'row'>
-    <div class= 'col-sm img-with-text'> 
-      <img src="{% static 'python_logo.png' %}" height = 100> Python </img> 
+  <!-- ── About ── -->
+  <section class="section reveal">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+      <img
+        src="{% static 'Cam.jpeg' %}"
+        alt="Cameron J. Davis"
+        class="about-photo"
+        width="130"
+        height="130"
+      >
+      <p class="about-text">
+        My name is Cameron and I&rsquo;m a fourth-year completing my B.S. in Computer Engineering
+        at the University of Virginia. In my free time I enjoy coding, making apps and websites,
+        cooking, sports, and yoga.
+      </p>
     </div>
-    <div class= 'col-sm img-with-text'> 
-        <img src="{% static 'cpluslogo.png' %}" height = 100 > C++ </img>
-    </div>
-    <div class= 'col-sm img-with-text'> 
-           <img src="{% static 'jupyter_logo.png' %}" height = 100 > Juypter </img>
-    </div>
-  </div>
-  <div class='row'>
-    <div class= 'col-sm img-with-text'> 
-            <img src="{% static 'matlab_logo.jpeg' %}" height = 100 > MatLab </img> 
-    </div>
-    <div class= 'col-sm img-with-text'> 
-              <img src="{% static 'multisim.jpeg' %}" height = 100 > MultiSim </img>
-    </div>
-    <div class= 'col-sm img-with-text'> 
-                <img src="{% static 'sql_logo.png' %}" height = 100 > SQL </img>
-    </div>
-  </div>
-  <div class = 'row'>
-    <div class= 'col-sm img-with-text'> 
-                  <img src="{% static 'pandas.png' %}" height = 100 > Pandas</img>
-    </div>
-    <div class= 'col-sm img-with-text'> 
-                  <img src="{% static 'tensorflow_logo.png' %}" height = 100 > TensorFlow</img>
-    </div>
-    <div class= 'col-sm img-with-text'> 
-                      <img src="{% static 'travis_logo.png' %}" height = 100 > TravisCI</img>
-    </div>
-  </div>
-</div>
+  </section>
 
-    
+  <!-- ── Skills ── -->
+  <section class="section reveal">
+    <p class="section-label">Skills</p>
+    <h2 class="section-title">Technologies &amp; Tools</h2>
+    <div class="skills-grid">
+      <span class="skill-badge">Python</span>
+      <span class="skill-badge">C++</span>
+      <span class="skill-badge">SQL</span>
+      <span class="skill-badge">Pandas</span>
+      <span class="skill-badge">NumPy</span>
+      <span class="skill-badge">TensorFlow</span>
+      <span class="skill-badge">Jupyter</span>
+      <span class="skill-badge">MATLAB</span>
+      <span class="skill-badge">MultiSim</span>
+      <span class="skill-badge">Travis CI</span>
+      <span class="skill-badge">Django</span>
+      <span class="skill-badge">Git</span>
+    </div>
+  </section>
 
-        
-       
-
-  < <div class="col">
-        <h1 class="fw-light">Previous Jobs and Projects</h1>
-     {% for job in jobs.all %}
-        	<a href="{% url 'detail' job.id%}">
-          <div class="card shadow-sm">
-          	<img src="{{job.image.url}}" height = 200 width=400></div>            
-            <div class="card-body">
-              <p class="card-text">{{ job.summary }}</p>
+  <!-- ── Projects ── -->
+  <section class="section reveal">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Projects &amp; Experience</h2>
+    <div class="projects-grid">
+      {% for job in jobs.all %}
+        <article class="project-card reveal">
+          <a href="{% url 'detail' job.id %}">
+            <div class="project-img-wrap">
+              <img
+                src="{{ job.image.url }}"
+                alt="{{ job.summary|truncatechars:80 }}"
+                loading="lazy"
+              >
             </div>
-  </div>
-  {% endfor %}
-</main>
+            <div class="project-body">
+              <p class="project-summary">{{ job.summary }}</p>
+              <span class="project-arrow">
+                View project
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="13" height="13" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        </article>
+      {% empty %}
+        <p class="empty-state">No projects yet &mdash; check back soon.</p>
+      {% endfor %}
+    </div>
+  </section>
 
-<!--
-<footer class="text-muted py-5">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
-  </div>
-</footer>
--->
-
-	<!--
-		Replaced Core JavaScript File
-
-		Old Link: 
-		<script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-	-->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-      
-  </body>
-</html>
-
-
-
-
+{% endblock %}
