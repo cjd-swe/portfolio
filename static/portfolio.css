@@ -382,6 +382,177 @@ img {
   padding: 2rem 0;
 }
 
+/* ── Timeline ────────────────────────────────────────────── */
+.timeline {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Gradient rail */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    #7c3aed 0%,
+    #0f62fe 38%,
+    #059669 72%,
+    #e57200 100%
+  );
+  opacity: 0.22;
+  border-radius: 1px;
+}
+
+.tl-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.tl-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--co, var(--accent));
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--co, var(--accent));
+  flex-shrink: 0;
+  margin-top: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes tl-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--co); }
+  50%       { box-shadow: 0 0 0 3px var(--bg), 0 0 0 9px var(--co), 0 0 16px var(--co); }
+}
+
+.tl-dot--pulse {
+  animation: tl-pulse 2.4s ease-in-out infinite;
+}
+
+.tl-card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--co, var(--accent));
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.35rem 1.25rem;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+
+.tl-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.tl-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tl-now {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--co, var(--accent));
+  background: var(--surface-2);
+  border: 1px solid var(--co, var(--accent));
+  padding: 0.1rem 0.45rem;
+  border-radius: 100px;
+}
+
+.tl-dates {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.tl-company-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--co, var(--accent));
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tl-title {
+  font-size: 0.975rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+
+.tl-desc {
+  font-size: 0.865rem;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+/* Sub-roles (IBM, UVA) */
+.tl-sub-roles {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.tl-sub {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.tl-sub:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.tl-sub-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--co, var(--accent));
+  opacity: 0.55;
+  flex-shrink: 0;
+  margin-top: 0.45rem;
+}
+
+.tl-sub-dates {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  margin-bottom: 0.3rem;
+}
+
+@media (max-width: 640px) {
+  .timeline { padding-left: 1.35rem; }
+  .tl-entry { gap: 0.9rem; }
+  .tl-card { padding: 0.9rem 1rem 1rem; }
+}
+
 /* --- Detail page --- */
 .detail-wrap {
   max-width: 860px;

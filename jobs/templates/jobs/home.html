@@ -37,9 +37,10 @@
         height="130"
       >
       <p class="about-text">
-        My name is Cameron and I&rsquo;m a fourth-year completing my B.S. in Computer Engineering
-        at the University of Virginia. In my free time I enjoy coding, making apps and websites,
-        cooking, sports, and yoga.
+        My name is Cameron and I&rsquo;m a Computer Engineering graduate of the University of Virginia.
+        I&rsquo;ve spent 4+ years building enterprise cloud software at IBM and am now a Software
+        Engineer at Artium AI. In my free time I enjoy coding, making apps and websites, cooking,
+        sports, and yoga.
       </p>
     </div>
   </section>
@@ -64,10 +65,115 @@
     </div>
   </section>
 
+  <!-- ── Experience ── -->
+  <section class="section reveal">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Professional Background</h2>
+
+    <div class="timeline">
+
+      <!-- Artium AI -->
+      <div class="tl-entry" style="--co: #7c3aed">
+        <div class="tl-dot tl-dot--pulse"></div>
+        <div class="tl-card reveal">
+          <div class="tl-card-head">
+            <div class="tl-meta">
+              <span class="tl-now">Now</span>
+              <span class="tl-dates">Mar 2026 &ndash; Present</span>
+            </div>
+            <span class="tl-company-tag">Artium AI</span>
+          </div>
+          <h3 class="tl-title">Software Engineer</h3>
+          <p class="tl-desc">Building AI-powered software products at a fast-moving startup focused on human&ndash;AI collaboration and developer tooling.</p>
+        </div>
+      </div>
+
+      <!-- IBM -->
+      <div class="tl-entry" style="--co: #0f62fe">
+        <div class="tl-dot"></div>
+        <div class="tl-card reveal">
+          <div class="tl-card-head">
+            <span class="tl-dates">Aug 2021 &ndash; Dec 2025 &middot; 4 yrs 5 mos</span>
+            <span class="tl-company-tag">IBM</span>
+          </div>
+          <div class="tl-sub-roles">
+            <div class="tl-sub">
+              <div class="tl-sub-dot"></div>
+              <div>
+                <h3 class="tl-title">Software Engineer &mdash; AI Cloud Assistant</h3>
+                <p class="tl-sub-dates">Jun 2025 &ndash; Dec 2025 &middot; 7 mos</p>
+                <p class="tl-desc">Contributed to IBM&rsquo;s AI Cloud Assistant, developing features that leverage large language models to streamline cloud operations and developer workflows.</p>
+              </div>
+            </div>
+            <div class="tl-sub">
+              <div class="tl-sub-dot"></div>
+              <div>
+                <h3 class="tl-title">Software Engineer &mdash; Security &amp; Compliance Platform</h3>
+                <p class="tl-sub-dates">Feb 2024 &ndash; Jun 2025 &middot; 1 yr 5 mos &middot; Austin, TX</p>
+                <p class="tl-desc">Designed and delivered internal compliance tooling that reduced reporting overhead for enterprise clients. Built automation pipelines and dashboards to track regulatory requirements across IBM Cloud services.</p>
+              </div>
+            </div>
+            <div class="tl-sub">
+              <div class="tl-sub-dot"></div>
+              <div>
+                <h3 class="tl-title">Cloud Software Engineer &mdash; IAM / Context Based Restrictions</h3>
+                <p class="tl-sub-dates">Aug 2021 &ndash; Feb 2024 &middot; 2 yrs 7 mos &middot; Austin, TX</p>
+                <p class="tl-desc">Developed and maintained policy-based access control features enabling enterprise-grade security for IBM Cloud. Contributed to Context Based Restrictions (CBR), a zero-trust network security system used by hundreds of enterprise clients.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMUVA Mobile -->
+      <div class="tl-entry" style="--co: #059669">
+        <div class="tl-dot"></div>
+        <div class="tl-card reveal">
+          <div class="tl-card-head">
+            <span class="tl-dates">Jan 2017 &ndash; Mar 2022 &middot; 5 yrs 3 mos</span>
+            <span class="tl-company-tag">CAMUVA Mobile</span>
+          </div>
+          <h3 class="tl-title">Owner / Technician</h3>
+          <p class="tl-desc">Founded and operated a mobile device repair business offering iPhone screen repair, battery replacement, and hardware services across the D.C. Metro and Charlottesville, VA areas.</p>
+        </div>
+      </div>
+
+      <!-- UVA -->
+      <div class="tl-entry" style="--co: #e57200">
+        <div class="tl-dot"></div>
+        <div class="tl-card reveal">
+          <div class="tl-card-head">
+            <span class="tl-dates">University of Virginia</span>
+            <span class="tl-company-tag">UVA</span>
+          </div>
+          <div class="tl-sub-roles">
+            <div class="tl-sub">
+              <div class="tl-sub-dot"></div>
+              <div>
+                <h3 class="tl-title">Teaching Assistant</h3>
+                <p class="tl-sub-dates">Aug 2020 &ndash; May 2021 &middot; 10 mos</p>
+                <p class="tl-desc">Supported undergraduate computer science students through office hours, grading, and constructive feedback sessions.</p>
+              </div>
+            </div>
+            <div class="tl-sub">
+              <div class="tl-sub-dot"></div>
+              <div>
+                <h3 class="tl-title">Software Developer</h3>
+                <p class="tl-sub-dates">May 2018 &ndash; Aug 2018 &middot; 4 mos</p>
+                <p class="tl-desc">Assisted staff in the Provost&rsquo;s office by developing and updating internal software tools to improve administrative workflows.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ── Projects ── -->
   <section class="section reveal">
-    <p class="section-label">Work</p>
-    <h2 class="section-title">Projects &amp; Experience</h2>
+    <p class="section-label">Projects</p>
+    <h2 class="section-title">Personal Projects</h2>
     <div class="projects-grid">
       {% for job in jobs.all %}
         <article class="project-card reveal">
