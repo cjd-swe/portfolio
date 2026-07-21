@@ -31,7 +31,7 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'camdavis.herokuapp.com', 'cjdswe.dev', 'www.cjdswe.dev']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', '.onrender.com', 'cjdswe.dev', 'www.cjdswe.dev']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,8 +81,9 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# Reads DATABASE_URL from the environment (set automatically by Heroku's Postgres
-# add-on). Falls back to local sqlite when it's not set, e.g. local dev.
+# Reads DATABASE_URL from the environment if a managed Postgres instance is
+# configured. Falls back to local sqlite when it's not set (local dev, and
+# currently also production — see TODO.md on the sqlite-on-Render tradeoff).
 DATABASES = {
     'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
 }
@@ -127,6 +129,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR

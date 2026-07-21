@@ -1,8 +1,23 @@
 # Repo cleanup to-do
 
-## Hosting — Heroku account presumed dead, need a new host
-- [ ] Heroku account (`camdavis` app) got a final inactivity notice and is presumed already deleted (2026, over a year of no logins) — confirm, then pick a new host (Render/Railway/Fly.io/etc.) for the Django app + Postgres
-- [ ] Point cjdswe.dev (newly purchased domain) at whatever the new host is
+## Hosting — moving off Heroku to Render (free tier + sqlite)
+Heroku account (`camdavis` app) got a final inactivity notice and is presumed
+already deleted (2026, over a year of no logins). Decided: Render free tier,
+production database is sqlite (not Postgres) — accepted tradeoff: Render's
+free tier has an ephemeral disk, so the sqlite file resets on every deploy.
+A data migration (`jobs/migrations/0004_seed_experience_and_projects.py`)
+re-seeds the Experience/Projects content automatically every time `migrate`
+runs, so a fresh deploy always comes back populated — just note that anything
+edited by hand via `/admin` (not in that migration) won't survive a redeploy.
+
+- [x] Prep repo for Render: `render.yaml` blueprint, whitenoise for static
+      files, unconditional media serving, seed data migration
+- [ ] You: create a Render account, connect this GitHub repo, deploy via
+      "New > Blueprint" (picks up `render.yaml` automatically)
+- [ ] You: in Render's dashboard, add a custom domain (`cjdswe.dev` and
+      `www.cjdswe.dev`) to the service, then update DNS at your domain
+      registrar per Render's instructions (usually a CNAME/ALIAS record)
+- [ ] Push this branch to `origin/main` first (Render deploys from GitHub)
 
 ## Critical — leaked credentials
 - [x] Move `SECRET_KEY` and `DATABASES` values into environment variables (`.env` locally via python-dotenv, `DATABASE_URL`/`DJANGO_SECRET_KEY` config vars in production via dj-database-url)
@@ -26,4 +41,4 @@
 
 ## Once the above is done
 - [ ] Push the local commits ahead of `origin/main`
-- [ ] Deploy to Heroku (production DB will need the new Job/Project data repopulated via `/admin` after migrating)
+- [ ] Deploy on Render (see Hosting section above)

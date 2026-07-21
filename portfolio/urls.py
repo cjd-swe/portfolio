@@ -14,16 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
+from django.views.static import serve
 import jobs.views
 from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', jobs.views.homepage, name = 'home'),
-    path('jobs/<int:job_id>', jobs.views.detail, name = 'detail')
-] 
-
-urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('jobs/<int:job_id>', jobs.views.detail, name = 'detail'),
+    # Static files are served by whitenoise (see MIDDLEWARE); media (uploaded job
+    # logos) is small and low-traffic enough to serve directly via Django here.
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+]
