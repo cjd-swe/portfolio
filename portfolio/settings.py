@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'afx9n(sgc)5(1*1uy&@rszind_f(2-42_h5+n27b-mpl&!t*wt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'camdavis.herokuapp.com']
 
@@ -89,7 +89,6 @@ DATABASES = {
         'PORT' : '5432',
         'USER' : 'zxatalxrofohut',
         'PASSWORD' : '0027c054f2a681f51750810495c113f4bdfb544e94e6cd66fdcb308d7afa5820',
-       
 
     }
 }
