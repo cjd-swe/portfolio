@@ -12,6 +12,9 @@ env/
 db.sqlite3
 *.log
 
+# Secrets
+.env
+
 # OS
 .DS_Store
 

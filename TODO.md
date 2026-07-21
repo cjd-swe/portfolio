@@ -1,13 +1,14 @@
 # Repo cleanup to-do
 
-## New domain — cjdswe.dev
-- [ ] Point cjdswe.dev at the deployed site (Heroku custom domain + DNS) — **blocked on the security items below being done first**, since the site currently still has leaked prod DB credentials in git history
+## Hosting — Heroku account presumed dead, need a new host
+- [ ] Heroku account (`camdavis` app) got a final inactivity notice and is presumed already deleted (2026, over a year of no logins) — confirm, then pick a new host (Render/Railway/Fly.io/etc.) for the Django app + Postgres
+- [ ] Point cjdswe.dev (newly purchased domain) at whatever the new host is
 
 ## Critical — leaked credentials
-- [ ] Rotate the Postgres password (Heroku dashboard/provider console) — assume compromised, it's been public
-- [ ] Check whether `OdietamO@85` (old plaintext password found in git history, commit `98cb789`) was reused anywhere else; change it if so
-- [ ] Move `SECRET_KEY` and `DATABASES` values into environment variables (`os.environ.get(...)`) in `portfolio/settings.py`
-- [ ] Scrub git history of the credentials (`git filter-repo` or BFG), then force-push — confirm with yourself before doing this, it rewrites history
+- [x] Move `SECRET_KEY` and `DATABASES` values into environment variables (`.env` locally via python-dotenv, `DATABASE_URL`/`DJANGO_SECRET_KEY` config vars in production via dj-database-url)
+- [x] Check whether `OdietamO@85` (old plaintext password found in git history, commit `98cb789`) was reused anywhere else — confirmed not reused
+- [ ] Rotate the Postgres password — moot if the Heroku app/DB is already deleted, but confirm before considering this closed
+- [ ] Scrub git history of the credentials (`git filter-repo` or BFG), then force-push — confirm with yourself before doing this, it rewrites history. Still worth doing even if the DB is gone, since the password/host pattern could still be reused as a phishing/recon target
 
 ## Broken working-tree edits (site won't render as-is)
 - [x] Fix `jobs/templates/jobs/home.html`: `{% logos 'linkedin_logo.jpeg' %}` → `{% static 'logos/linkedin_logo.jpeg' %}`

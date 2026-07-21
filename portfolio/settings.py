@@ -12,21 +12,26 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Loads variables from a local .env file, if one exists (gitignored — never commit it).
+# On Heroku/production, config vars are already in the environment, so this is a no-op there.
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'afx9n(sgc)5(1*1uy&@rszind_f(2-42_h5+n27b-mpl&!t*wt'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'camdavis.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'camdavis.herokuapp.com', 'cjdswe.dev', 'www.cjdswe.dev']
 
 
 # Application definition
@@ -75,22 +80,10 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-#localhost = 127.0.0.1
-# 'USER': 'postgres',
-#'PASSWORD': 'OdietamO@85',
-#'HOST': 'localhost',
-#'PORT': '5432',
-
+# Reads DATABASE_URL from the environment (set automatically by Heroku's Postgres
+# add-on). Falls back to local sqlite when it's not set, e.g. local dev.
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'de7il1kg5vblb',
-        'HOST' : 'ec2-3-222-11-129.compute-1.amazonaws.com',
-        'PORT' : '5432',
-        'USER' : 'zxatalxrofohut',
-        'PASSWORD' : '0027c054f2a681f51750810495c113f4bdfb544e94e6cd66fdcb308d7afa5820',
-
-    }
+    'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
 }
 
 
