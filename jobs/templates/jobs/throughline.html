@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+  <head>
+    <title>Throughline Demo &mdash; Cameron J. Davis</title>
+
+<!-- Bootstrap core CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+{% verbatim %}
+<style>
+.tl-root{ --navy:#103A5A; --green:#16915A; --amber:#B45309; --paper:#F3F5F7; --panel:#fff;
+  --ink:#101722; --muted:#5A6673; --faint:#8B96A1; --hair:#D5DBE1; --navy-soft:#E6EDF3;
+  --green-soft:#E4F3EB; --amber-soft:#FBF0E4; background:var(--paper); color:var(--ink);
+  min-height:100%; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:22px; box-sizing:border-box; }
+.tl-root *{ box-sizing:border-box; }
+.tl-head{ display:flex; justify-content:space-between; align-items:center; padding-bottom:14px;
+  border-bottom:1.5px solid var(--ink); margin-bottom:20px; }
+.tl-brand{ display:flex; align-items:center; gap:10px; }
+.tl-word{ font-size:19px; font-weight:700; letter-spacing:-0.3px; }
+.tl-sub{ font-size:11px; color:var(--muted); border-left:1px solid var(--hair); padding-left:10px; }
+.tl-demo{ font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--navy); background:var(--navy-soft); padding:4px 9px; border-radius:3px; }
+.tl-grid{ display:grid; grid-template-columns:minmax(0,42%) minmax(0,58%); gap:20px; align-items:start; }
+@media (max-width:860px){ .tl-grid{ grid-template-columns:1fr; } }
+.tl-panel{ background:var(--panel); border:1px solid var(--hair); border-radius:6px; padding:16px; }
+.tl-panel-label{ font-size:10px; letter-spacing:1.6px; text-transform:uppercase; font-weight:700;
+  color:var(--faint); margin-bottom:12px; }
+.tl-seg{ display:inline-flex; background:var(--paper); border:1px solid var(--hair); border-radius:5px;
+  padding:3px; margin-bottom:12px; }
+.tl-seg-btn{ border:0; background:transparent; font:inherit; font-size:12px; font-weight:600;
+  color:var(--muted); padding:6px 12px; border-radius:3px; cursor:pointer; }
+.tl-seg-btn.on{ background:var(--navy); color:#fff; }
+.tl-seg-btn:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+.tl-plan{ font-size:11px; color:var(--navy); font-weight:600; margin-bottom:10px; }
+.tl-ta{ width:100%; min-height:288px; resize:vertical; border:1px solid var(--hair); border-radius:5px;
+  padding:12px; font-size:11.5px; line-height:1.5; color:#2C3742;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:#FBFCFD; }
+.tl-ta:focus{ outline:none; border-color:var(--navy); box-shadow:0 0 0 3px var(--navy-soft); }
+.tl-cta{ width:100%; margin-top:12px; background:var(--navy); color:#fff; border:0; border-radius:5px;
+  padding:12px; font:inherit; font-size:13px; font-weight:700; cursor:pointer; display:flex;
+  align-items:center; justify-content:center; }
+.tl-cta:hover{ background:#0C2E48; }
+.tl-cta:disabled{ opacity:.75; cursor:default; }
+.tl-cta:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+.tl-cta-load{ display:inline-flex; align-items:center; gap:9px; }
+.tl-spin{ width:13px; height:13px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff;
+  border-radius:50%; animation:tl-rot .7s linear infinite; }
+@keyframes tl-rot{ to{ transform:rotate(360deg); } }
+.tl-note{ font-size:10.5px; margin-top:9px; min-height:14px; text-align:center; }
+.tl-live{ color:var(--green); font-weight:700; }
+.tl-fb{ color:var(--faint); }
+.tl-out{ display:flex; flex-direction:column; gap:14px; }
+.tl-status{ display:flex; gap:12px; align-items:flex-start; padding:14px 15px; border-radius:6px;
+  border:1px solid; animation:tl-in .35s ease; }
+.tl-status.ok{ background:var(--green-soft); border-color:#BFE3CD; }
+.tl-status.warn{ background:var(--amber-soft); border-color:#EAD5B8; }
+@keyframes tl-in{ from{ opacity:0; transform:translateY(4px);} to{ opacity:1; transform:none;} }
+.tl-badge{ flex:0 0 auto; width:24px; height:24px; border-radius:50%; color:#fff; font-weight:800;
+  font-size:14px; display:flex; align-items:center; justify-content:center; }
+.tl-status.ok .tl-badge{ background:var(--green); }
+.tl-status.warn .tl-badge{ background:var(--amber); }
+.tl-status-t{ font-size:14px; font-weight:700; letter-spacing:-0.2px; }
+.tl-status.ok .tl-status-t{ color:var(--green); }
+.tl-status.warn .tl-status-t{ color:var(--amber); }
+.tl-status-d{ font-size:11px; line-height:1.45; color:#3A4551; margin-top:3px; }
+.tl-card{ background:var(--panel); border:1px solid var(--hair); border-radius:6px; overflow:hidden; }
+.tl-card-h{ font-size:10px; letter-spacing:1.5px; text-transform:uppercase; font-weight:700;
+  color:var(--navy); background:#FAFBFC; padding:9px 14px; border-bottom:1px solid var(--hair); }
+.tl-soap{ padding:6px 14px 12px; }
+.tl-soap-row{ display:flex; gap:11px; padding:9px 0; border-bottom:1px solid #EDF1F4; }
+.tl-soap-row:last-child{ border-bottom:0; }
+.tl-soap-k{ flex:0 0 auto; width:20px; height:20px; border-radius:4px; background:var(--navy-soft);
+  color:var(--navy); font-weight:800; font-size:11px; display:flex; align-items:center;
+  justify-content:center; margin-top:1px; }
+.tl-soap-l{ font-size:9.5px; letter-spacing:1px; text-transform:uppercase; color:var(--faint);
+  font-weight:700; margin-bottom:2px; }
+.tl-soap-v{ font-size:11.5px; line-height:1.5; color:#2C3742; }
+.tl-req{ list-style:none; margin:0; padding:8px 14px; }
+.tl-req li{ display:grid; grid-template-columns:22px 1fr; column-gap:9px; row-gap:1px; padding:8px 0;
+  border-bottom:1px solid #EDF1F4; align-items:start; }
+.tl-req li:last-child{ border-bottom:0; }
+.tl-tick{ grid-row:span 2; width:19px; height:19px; border-radius:50%; color:#fff; font-weight:800;
+  font-size:11px; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.tl-req li.met .tl-tick{ background:var(--green); }
+.tl-req li.miss .tl-tick{ background:var(--amber); }
+.tl-req-l{ font-size:11.5px; font-weight:600; color:var(--ink); }
+.tl-req li.miss .tl-req-l{ color:var(--amber); }
+.tl-req-e{ font-size:10.5px; color:var(--muted); }
+.tl-data-h{ font-size:9.5px; letter-spacing:1px; text-transform:uppercase; color:var(--faint);
+  font-weight:700; padding:4px 14px; border-top:1px solid var(--hair); background:#FAFBFC; }
+.tl-data{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--hair);
+  border-top:1px solid var(--hair); }
+@media (max-width:520px){ .tl-data{ grid-template-columns:1fr 1fr; } }
+.tl-data-cell{ background:var(--panel); padding:9px 12px; }
+.tl-data-k{ font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:var(--faint); }
+.tl-data-v{ font-size:12px; font-weight:700; color:var(--navy); margin-top:2px; }
+.tl-foot{ font-size:9.5px; color:var(--faint); text-align:right; padding-top:2px; }
+html, body{ height:100%; }
+body{ margin:0; background:#F3F5F7; }
+</style>
+{% endverbatim %}
+  </head>
+  <body>
+
+<header>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
+        <strong>Cameron J. Davis</strong>
+      </a>
+      <a href="{% url 'home' %}" class="btn btn-outline-light btn-sm">&larr; Back to portfolio</a>
+    </div>
+  </div>
+</header>
+
+<div class="tl-root">
+  <header class="tl-head">
+    <div class="tl-brand">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="15" height="15" rx="3" fill="none" stroke="#103A5A" stroke-width="2.2" />
+        <line x1="3" y1="9" x2="15" y2="9" stroke="#16915A" stroke-width="2.2" />
+      </svg>
+      <span class="tl-word">Throughline</span>
+      <span class="tl-sub">Nutrition compliance workspace</span>
+    </div>
+    <span class="tl-demo">Demo</span>
+  </header>
+
+  <div class="tl-grid">
+    <section class="tl-panel">
+      <div class="tl-panel-label">Counseling session</div>
+      <div class="tl-seg" role="tablist" id="tl-seg"></div>
+      <div class="tl-plan" id="tl-plan"></div>
+      <textarea class="tl-ta" id="tl-ta" spellcheck="false"></textarea>
+      <button class="tl-cta" id="tl-cta">Generate documentation</button>
+      <div class="tl-note" id="tl-note"></div>
+    </section>
+
+    <section class="tl-out">
+      <div class="tl-status" id="tl-status">
+        <span class="tl-badge" id="tl-badge"></span>
+        <div>
+          <div class="tl-status-t" id="tl-status-t"></div>
+          <div class="tl-status-d" id="tl-status-d"></div>
+        </div>
+      </div>
+
+      <div class="tl-card">
+        <div class="tl-card-h">Clinical note - SOAP</div>
+        <div class="tl-soap" id="tl-soap"></div>
+      </div>
+
+      <div class="tl-card">
+        <div class="tl-card-h">Prior authorization - compliance artifact</div>
+        <ul class="tl-req" id="tl-req"></ul>
+        <div class="tl-data-h">Extracted for outcome reporting</div>
+        <div class="tl-data" id="tl-data"></div>
+      </div>
+      <div class="tl-foot">Illustrative demo - not for clinical use.</div>
+    </section>
+  </div>
+</div>
+
+{% verbatim %}
+<script>
+(function () {
+  "use strict";
+
+  /* Throughline - Build 1 demo
+     Counseling session in -> SOAP note + prior-auth compliance artifact out.
+     Opens with a complete baked result (instant, no network). "Generate" re-runs
+     it live through Claude, with automatic fallback to the baked result on failure. */
+
+  var today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+
+  var SAMPLES = {
+    A: {
+      tag: "Complete visit",
+      plan: "Medicare Part D - GLP-1 Bridge",
+      text: [
+        "Patient: 58F. Medicare Part D (GLP-1 Bridge). Referred for nutrition counseling to support initiation of semaglutide (Wegovy) for weight management.",
+        "",
+        "Visit: Initial medical nutrition therapy, 45 min, telehealth.",
+        "",
+        "History: BMI 37.2 (5'4\", 217 lb). Hypertension, prediabetes (A1c 6.1%). No prior bariatric surgery. Motivated; history of cyclical dieting.",
+        "",
+        "Nutrition counseling provided: Reviewed calorie and protein targets (~1.2 g/kg) to preserve lean mass during GLP-1 therapy. Discussed managing GI side effects (nausea, early satiety) with smaller frequent meals and hydration. Established structured meal pattern; reduced ultra-processed intake. Written plan provided.",
+        "",
+        "Physical activity counseling provided: Discussed progressive resistance training 2x/week to preserve muscle plus 150 min/week moderate aerobic activity. Initial goal of daily 20-minute walks, building up.",
+        "",
+        "Plan: Ongoing MNT every 2 weeks x 3 months to support adherence and monitor weight, then monthly. Coordinate with prescriber. Next visit in 2 weeks."
+      ].join("\n"),
+      baked: {
+        soap: {
+          subjective: "58-year-old woman referred for medical nutrition therapy to support initiation of semaglutide for weight management. Motivated, with a history of cyclical dieting and no prior bariatric surgery.",
+          objective: "BMI 37.2 (5'4\", 217 lb). Hypertension and prediabetes (A1c 6.1%). Initial 45-minute telehealth MNT visit.",
+          assessment: "Obesity (BMI ≥ 35) with metabolic risk, appropriate for GLP-1 therapy combined with structured lifestyle modification. Adequate understanding and motivation for behavior change.",
+          plan: "Protein ~1.2 g/kg to preserve lean mass; structured meal pattern; GI side-effect management. Resistance training 2x/week plus 150 min/week aerobic activity. Ongoing MNT every 2 weeks x 3 months, then monthly; coordinate with prescriber."
+        },
+        attestation: {
+          status: "attestation-ready",
+          statement: "Patient is prescribed semaglutide to reduce and maintain excess body weight in combination with ongoing structured nutrition and physical-activity counseling, consistent with the FDA-approved label.",
+          requirements: [
+            { label: "Structured nutrition counseling provided", met: true, evidence: "Protein targets, meal pattern, GI management, written plan" },
+            { label: "Physical activity counseling provided", met: true, evidence: "Resistance 2x/wk + 150 min/wk aerobic; walking goal set" },
+            { label: "Ongoing lifestyle modification plan", met: true, evidence: "MNT every 2 weeks x 3 months, then monthly" },
+            { label: "Patient age ≥ 18", met: true, evidence: "Age 58" },
+            { label: "BMI documented and ≥ 30", met: true, evidence: "BMI 37.2" },
+            { label: "Use consistent with FDA-approved label", met: true, evidence: "Weight management with lifestyle modification" }
+          ]
+        },
+        data: [
+          { field: "Program", value: "Medicare Part D - GLP-1 Bridge" },
+          { field: "Medication", value: "Semaglutide (Wegovy)" },
+          { field: "BMI", value: "37.2" },
+          { field: "Weight", value: "217 lb" },
+          { field: "A1c", value: "6.1%" },
+          { field: "Visit date", value: today }
+        ]
+      }
+    },
+    B: {
+      tag: "Missing element",
+      plan: "Medicaid - BALANCE Model",
+      text: [
+        "Patient: 61M. Medicaid (BALANCE Model). Referred for nutrition counseling alongside tirzepatide for obesity.",
+        "",
+        "Visit: Initial nutrition consult, 30 min.",
+        "",
+        "History: BMI 34.0 (5'10\", 237 lb). Type 2 diabetes (A1c 7.4%).",
+        "",
+        "Counseling provided: Discussed reducing sugary beverages and portion sizes, and including protein at each meal. Reviewed nausea management. Handout provided.",
+        "",
+        "Plan: Follow up in 3 weeks."
+      ].join("\n"),
+      baked: {
+        soap: {
+          subjective: "61-year-old man referred for nutrition counseling alongside tirzepatide for obesity. History of type 2 diabetes.",
+          objective: "BMI 34.0 (5'10\", 237 lb). A1c 7.4%. Initial 30-minute nutrition consult.",
+          assessment: "Obesity with type 2 diabetes, candidate for GLP-1 therapy with lifestyle modification. Nutrition counseling initiated; physical-activity counseling not yet addressed.",
+          plan: "Reduce sugary beverages; portion control; protein at each meal; nausea management. Follow up in 3 weeks. Physical-activity plan to be established at next visit."
+        },
+        attestation: {
+          status: "action-needed",
+          statement: "Attestation cannot be completed until physical-activity counseling is documented for this encounter.",
+          requirements: [
+            { label: "Structured nutrition counseling provided", met: true, evidence: "Beverage/portion guidance, protein, nausea management" },
+            { label: "Physical activity counseling provided", met: false, evidence: "Not documented in session" },
+            { label: "Ongoing lifestyle modification plan", met: true, evidence: "Follow-up scheduled in 3 weeks" },
+            { label: "Patient age ≥ 18", met: true, evidence: "Age 61" },
+            { label: "BMI documented and ≥ 30", met: true, evidence: "BMI 34.0" },
+            { label: "Use consistent with FDA-approved label", met: true, evidence: "Obesity with lifestyle modification" }
+          ]
+        },
+        data: [
+          { field: "Program", value: "Medicaid - BALANCE Model" },
+          { field: "Medication", value: "Tirzepatide (Zepbound)" },
+          { field: "BMI", value: "34.0" },
+          { field: "Weight", value: "237 lb" },
+          { field: "A1c", value: "7.4%" },
+          { field: "Visit date", value: today }
+        ]
+      }
+    }
+  };
+
+  var INSTRUCTIONS = [
+    "You are Throughline, a clinical documentation engine for registered dietitians providing nutrition counseling to patients on GLP-1 therapy under Medicare and Medicaid. From the counseling session note below, produce (1) a concise SOAP clinical note and (2) a prior-authorization compliance artifact that documents whether the session supports the prescriber's required attestation of ongoing structured nutrition and physical-activity counseling.",
+    "",
+    "Evaluate these attestation elements: structured nutrition counseling provided; physical activity counseling provided; ongoing lifestyle modification plan; patient age >= 18; BMI documented and >= 30; use consistent with FDA-approved label (weight management with lifestyle modification). Decide met true/false based ONLY on what the session documents. If an element is not documented, set met=false with evidence \"Not documented in session.\" Do not invent clinical facts. Set status to \"attestation-ready\" only if every element is met; otherwise \"action-needed\".",
+    "",
+    "Respond with ONLY valid JSON, no markdown, no code fences, no preamble, in exactly this shape:",
+    "{\"soap\":{\"subjective\":\"\",\"objective\":\"\",\"assessment\":\"\",\"plan\":\"\"},\"attestation\":{\"status\":\"attestation-ready|action-needed\",\"statement\":\"\",\"requirements\":[{\"label\":\"\",\"met\":true,\"evidence\":\"\"}]},\"data\":[{\"field\":\"\",\"value\":\"\"}]}",
+    "",
+    "Keep each SOAP section to 2-3 sentences. Keep each evidence to a short phrase. Be concise; keep the whole response under about 350 words.",
+    "",
+    "COUNSELING SESSION:"
+  ].join("\n");
+
+  var active = "A";
+  var loading = false;
+
+  var seg = document.getElementById("tl-seg");
+  var planEl = document.getElementById("tl-plan");
+  var ta = document.getElementById("tl-ta");
+  var cta = document.getElementById("tl-cta");
+  var note = document.getElementById("tl-note");
+  var statusBox = document.getElementById("tl-status");
+  var badge = document.getElementById("tl-badge");
+  var statusT = document.getElementById("tl-status-t");
+  var statusD = document.getElementById("tl-status-d");
+  var soapEl = document.getElementById("tl-soap");
+  var reqEl = document.getElementById("tl-req");
+  var dataEl = document.getElementById("tl-data");
+
+  function make(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function renderTabs() {
+    seg.innerHTML = "";
+    Object.keys(SAMPLES).forEach(function (k) {
+      var b = make("button", "tl-seg-btn" + (active === k ? " on" : ""), SAMPLES[k].tag);
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", active === k ? "true" : "false");
+      b.addEventListener("click", function () { pickSample(k); });
+      seg.appendChild(b);
+    });
+  }
+
+  function renderSource(source) {
+    note.innerHTML = "";
+    if (source === "live") {
+      note.appendChild(make("span", "tl-live", "Generated live by Claude"));
+    } else if (source === "fallback") {
+      note.appendChild(make("span", "tl-fb", "Live generation unavailable - showing sample output"));
+    } else {
+      note.appendChild(make("span", "tl-fb", "Sample output - press Generate to run live"));
+    }
+  }
+
+  function renderResults(results) {
+    var ready = results.attestation.status === "attestation-ready";
+
+    statusBox.className = "tl-status " + (ready ? "ok" : "warn");
+    badge.textContent = ready ? "✓" : "!";
+    statusT.textContent = ready ? "Attestation-ready" : "Action needed";
+    statusD.textContent = results.attestation.statement;
+
+    soapEl.innerHTML = "";
+    [["S", "Subjective", results.soap.subjective],
+     ["O", "Objective", results.soap.objective],
+     ["A", "Assessment", results.soap.assessment],
+     ["P", "Plan", results.soap.plan]].forEach(function (row) {
+      var r = make("div", "tl-soap-row");
+      r.appendChild(make("span", "tl-soap-k", row[0]));
+      var body = make("div");
+      body.appendChild(make("div", "tl-soap-l", row[1]));
+      body.appendChild(make("div", "tl-soap-v", row[2]));
+      r.appendChild(body);
+      soapEl.appendChild(r);
+    });
+
+    reqEl.innerHTML = "";
+    (results.attestation.requirements || []).forEach(function (req) {
+      var li = make("li", req.met ? "met" : "miss");
+      li.appendChild(make("span", "tl-tick", req.met ? "✓" : "!"));
+      li.appendChild(make("span", "tl-req-l", req.label));
+      li.appendChild(make("span", "tl-req-e", req.evidence));
+      reqEl.appendChild(li);
+    });
+
+    dataEl.innerHTML = "";
+    (results.data || []).forEach(function (d) {
+      var cell = make("div", "tl-data-cell");
+      cell.appendChild(make("div", "tl-data-k", d.field));
+      cell.appendChild(make("div", "tl-data-v", d.value));
+      dataEl.appendChild(cell);
+    });
+  }
+
+  function setLoading(on) {
+    loading = on;
+    cta.disabled = on;
+    if (on) {
+      cta.innerHTML = "";
+      var wrap = make("span", "tl-cta-load");
+      wrap.appendChild(make("span", "tl-spin"));
+      wrap.appendChild(document.createTextNode(" Generating..."));
+      cta.appendChild(wrap);
+    } else {
+      cta.textContent = "Generate documentation";
+    }
+  }
+
+  function pickSample(key) {
+    active = key;
+    ta.value = SAMPLES[key].text;
+    planEl.textContent = SAMPLES[key].plan;
+    renderTabs();
+    renderResults(SAMPLES[key].baked);
+    renderSource("sample");
+  }
+
+  function generate() {
+    if (loading) return;
+    setLoading(true);
+    fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: INSTRUCTIONS + "\n" + ta.value }]
+      })
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var text = (data.content || [])
+          .filter(function (b) { return b.type === "text"; })
+          .map(function (b) { return b.text; })
+          .join("")
+          .replace(/```json|```/g, "")
+          .trim();
+        var parsed = JSON.parse(text);
+        if (!parsed.soap || !parsed.attestation) throw new Error("shape");
+        renderResults(parsed);
+        renderSource("live");
+      })
+      .catch(function () {
+        renderResults(SAMPLES[active].baked);
+        renderSource("fallback");
+      })
+      .then(function () { setLoading(false); });
+  }
+
+  cta.addEventListener("click", generate);
+  pickSample("A");
+})();
+</script>
+{% endverbatim %}
+  </body>
+</html>
