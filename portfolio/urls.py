@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', jobs.views.homepage, name = 'home'),
     path('jobs/<int:job_id>', jobs.views.detail, name = 'detail'),
+    path('throughline/', jobs.views.throughline, name = 'throughline'),
     # Static files are served by whitenoise (see MIDDLEWARE); media (uploaded job
     # logos) is small and low-traffic enough to serve directly via Django here.
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
