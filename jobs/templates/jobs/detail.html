@@ -58,10 +58,13 @@
     <div class="row py-lg-5">
     	<div class="align-items-center">
       		<div class="col-lg-6 col-md-8 mx-auto">
-        		<h1 class="fw-light">Job Details</h1>
-        			<p class="lead text-muted"> {{job.summary}}</p>
-       				 <img src="{{job.image.url}}" height = 200> </img>
-        			<p> 
+        		{% if job.logo %}
+        		<img src="{{ job.logo.url }}" height="120" class="mb-3">
+        		{% endif %}
+        		<h1 class="fw-light">{{ job.title }}</h1>
+        			<h5 class="text-muted">{{ job.company }} &middot; {{ job.date_range }}</h5>
+        			<p class="lead text-muted mt-3"> {{ job.description }}</p>
+        			<p>
         				<a href="{% url 'home' %}" class="btn btn-primary my-2">Home</a>
         			</p>
         	</div>
