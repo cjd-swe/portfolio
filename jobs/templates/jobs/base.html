@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cameron J. Davis is a Forward Deployed Engineer building secure backend systems, cloud infrastructure, and delivery pipelines.">
+  <meta name="theme-color" content="#101c4c">
+  <title>{% block title %}Cameron J. Davis{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="{% url 'home' %}" aria-label="Cameron J. Davis, home">
+        <span class="brand-mark" aria-hidden="true">CD</span>
+        <span class="brand-name">Cameron J. Davis</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="{% url 'home' %}#work">Experience</a>
+        <a href="{% url 'home' %}#projects">Projects</a>
+        <a href="{% url 'home' %}#about">About</a>
+      </nav>
+
+      <a class="header-contact" href="{% url 'home' %}#contact">
+        Let's talk <span aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-kicker">Cameron J. Davis</p>
+        <p class="footer-statement">Building dependable systems with people in mind.</p>
+      </div>
+      <div class="footer-links" aria-label="Social links">
+        <a href="https://www.linkedin.com/in/cjd-swe/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">&#8599;</span></a>
+        <a href="https://github.com/cjd-swe" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">&#8599;</span></a>
+        <a href="mailto:cjd.swe@gmail.com?subject=Portfolio%20inquiry">Email <span aria-hidden="true">&#8599;</span></a>
+      </div>
+    </div>
+    <div class="shell footer-base">
+      <span>&copy; {% now "Y" %} Cameron J. Davis</span>
+      <a href="#main-content">Back to top <span aria-hidden="true">&#8593;</span></a>
+    </div>
+  </footer>
+</body>
+</html>
