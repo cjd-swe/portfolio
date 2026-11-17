@@ -72,27 +72,46 @@ LOGO_DIR = os.path.join(settings.BASE_DIR, 'jobs', 'static', 'job_logos')
 def seed_data(apps, schema_editor):
     Job = apps.get_model('jobs', 'Job')
     Project = apps.get_model('jobs', 'Project')
+    db_alias = schema_editor.connection.alias
 
-    for job_data in JOBS:
+    for seed in JOBS:
+        job_data = seed.copy()
         logo_filename = job_data.pop('logo_filename')
-        job, created = Job.objects.get_or_create(
+        job, created = Job.objects.using(db_alias).get_or_create(
             title=job_data['title'], company=job_data['company'], defaults=job_data,
         )
         if created and logo_filename:
             logo_path = os.path.join(LOGO_DIR, logo_filename)
             if os.path.exists(logo_path):
                 with open(logo_path, 'rb') as f:
-                    job.logo.save(logo_filename, File(f), save=True)
+                    job.logo.save(logo_filename, File(f), save=False)
+                    job.save(using=db_alias)
 
     for project_data in PROJECTS:
-        Project.objects.get_or_create(name=project_data['name'], defaults=project_data)
+        Project.objects.using(db_alias).get_or_create(
+            name=project_data['name'], defaults=project_data,
+        )
 
 
 def remove_data(apps, schema_editor):
     Job = apps.get_model('jobs', 'Job')
     Project = apps.get_model('jobs', 'Project')
-    Job.objects.filter(company__in=['Artium AI', 'IBM', 'CAMUVA Mobile']).delete()
-    Project.objects.filter(name__in=['SharpWatch (CAPFREE)', 'Spotify Mood Ring']).delete()
+    db_alias = schema_editor.connection.alias
+    for seed in JOBS:
+        job_data = seed.copy()
+        logo_filename = job_data.pop('logo_filename')
+        job_data['logo'] = ''
+        if logo_filename and os.path.exists(os.path.join(LOGO_DIR, logo_filename)):
+            job_data['logo'] = Job._meta.get_field('logo').generate_filename(
+                Job(**job_data), logo_filename,
+            )
+        for job in Job.objects.using(db_alias).filter(**job_data):
+            if job.logo:
+                job.logo.delete(save=False)
+            job.delete(using=db_alias)
+
+    for project_data in PROJECTS:
+        Project.objects.using(db_alias).filter(**project_data).delete()
 
 
 class Migration(migrations.Migration):

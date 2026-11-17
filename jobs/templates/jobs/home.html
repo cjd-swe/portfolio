@@ -5,7 +5,10 @@
 
 {% block content %}
   <section class="hero" aria-labelledby="hero-title">
-    <img class="hero-image" src="{% static 'cameron-hero.png' %}" alt="Cameron Davis seated against a navy studio backdrop">
+    <picture>
+      <source type="image/webp" srcset="{% static 'cameron-hero-900.webp' %} 900w, {% static 'cameron-hero.webp' %} 1672w" sizes="100vw">
+      <img class="hero-image" src="{% static 'cameron-hero.jpg' %}" alt="Cameron Davis seated against a navy studio backdrop" width="1672" height="941" fetchpriority="high">
+    </picture>
     <div class="shell hero-content">
       <p class="eyebrow hero-eyebrow"><span class="status-dot" aria-hidden="true"></span> Forward Deployed Engineer at Artium AI</p>
       <h1 id="hero-title">Cameron<br>J. Davis</h1>
@@ -56,7 +59,7 @@
               <span class="experience-number">0{{ forloop.counter }}</span>
               <span class="company-mark">
                 {% if job.logo %}
-                  <img src="{{ job.logo.url }}" alt="{{ job.company }} logo" loading="lazy">
+                  <img src="{{ job.logo.url }}" alt="{{ job.company }} logo" loading="lazy" width="54" height="54">
                 {% else %}
                   <span aria-hidden="true">CM</span>
                 {% endif %}
@@ -86,14 +89,14 @@
       </div>
 
       <ul class="skills-grid" aria-label="Technical skills">
-        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="" width="52" height="52"><span>Go</span></li>
-        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="" width="52" height="52"><span>Kubernetes</span></li>
-        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="" width="52" height="52"><span>Docker</span></li>
+        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/go/go-original.svg" alt="" width="52" height="52"><span>Go</span></li>
+        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/kubernetes/kubernetes-plain.svg" alt="" width="52" height="52"><span>Kubernetes</span></li>
+        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/docker/docker-original.svg" alt="" width="52" height="52"><span>Docker</span></li>
         <li><img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/cloud.svg" alt="" width="52" height="52"><span>Cloud infrastructure</span></li>
-        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-plain.svg" alt="" width="52" height="52"><span>CI/CD</span></li>
+        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/githubactions/githubactions-plain.svg" alt="" width="52" height="52"><span>CI/CD</span></li>
         <li><img src="{% static 'logos/python_logo.png' %}" alt="" width="52" height="52"><span>Python</span></li>
         <li><img src="{% static 'logos/sql_bg.png' %}" alt="" width="52" height="52"><span>SQL</span></li>
-        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" width="52" height="52"><span>Git</span></li>
+        <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-original.svg" alt="" width="52" height="52"><span>Git</span></li>
       </ul>
     </div>
   </section>
@@ -158,22 +161,5 @@
         </div>
       </div>
     </div>
-    <div class="text-center mt-4">
-      <a href="{% url 'throughline' %}" class="btn btn-dark">Try the Throughline demo</a>
-    </div>
-  </div>
-</main>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-      
-  </body>
-</html>
-
-
-
-
   </section>
 {% endblock %}

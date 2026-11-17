@@ -74,7 +74,9 @@ python manage.py createsuperuser
 ```
 
 After starting the server, visit <http://127.0.0.1:8000/admin/> to manage the
-portfolio content.
+jobs and projects, including their display order. Production content is seeded by
+`jobs/migrations/0004_seed_experience_and_projects.py`; Render uses ephemeral SQLite
+unless `DATABASE_URL` is set, so admin edits to SQLite data are lost on redeploy.
 
 ## Run checks and tests
 

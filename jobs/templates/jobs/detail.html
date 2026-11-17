@@ -15,7 +15,7 @@
           </div>
           <div class="detail-logo">
             {% if job.logo %}
-              <img src="{{ job.logo.url }}" alt="{{ job.company }} logo">
+              <img src="{{ job.logo.url }}" alt="{{ job.company }} logo" width="112" height="112">
             {% else %}
               <span aria-hidden="true">{{ job.company|slice:":2" }}</span>
             {% endif %}

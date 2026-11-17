@@ -15,16 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from django.views.static import serve
 import jobs.views
-from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', jobs.views.homepage, name = 'home'),
     path('jobs/<int:job_id>', jobs.views.detail, name = 'detail'),
-    path('throughline/', jobs.views.throughline, name = 'throughline'),
+    path('robots.txt', jobs.views.robots, name='robots'),
+    path('sitemap.xml', jobs.views.sitemap, name='sitemap'),
+    path('favicon.ico', jobs.views.root_icon, {'filename': 'favicon.ico'}),
+    path('apple-touch-icon.png', jobs.views.root_icon, {'filename': 'apple-touch-icon.png'}),
     # Static files are served by whitenoise (see MIDDLEWARE); media (uploaded job
     # logos) is small and low-traffic enough to serve directly via Django here.
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^media/(?P<path>.*)$', jobs.views.media),
 ]

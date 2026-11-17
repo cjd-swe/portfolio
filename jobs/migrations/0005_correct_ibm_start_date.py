@@ -7,12 +7,16 @@ NEW_DATE_RANGE = 'Aug 2021 – Dec 2025'
 
 def update_ibm_date_range(apps, schema_editor):
     Job = apps.get_model('jobs', 'Job')
-    Job.objects.filter(company='IBM').update(date_range=NEW_DATE_RANGE)
+    Job.objects.using(schema_editor.connection.alias).filter(
+        company='IBM', title='Software Engineer', date_range=OLD_DATE_RANGE,
+    ).update(date_range=NEW_DATE_RANGE)
 
 
 def restore_ibm_date_range(apps, schema_editor):
     Job = apps.get_model('jobs', 'Job')
-    Job.objects.filter(company='IBM').update(date_range=OLD_DATE_RANGE)
+    Job.objects.using(schema_editor.connection.alias).filter(
+        company='IBM', title='Software Engineer', date_range=NEW_DATE_RANGE,
+    ).update(date_range=OLD_DATE_RANGE)
 
 
 class Migration(migrations.Migration):

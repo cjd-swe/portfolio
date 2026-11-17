@@ -4,13 +4,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Cameron J. Davis is a Forward Deployed Engineer building secure backend systems, cloud infrastructure, and delivery pipelines.">
+  <meta name="description" content="{% block description %}{{ page_description }}{% endblock %}">
   <meta name="theme-color" content="#101c4c">
-  <title>{% block title %}Cameron J. Davis{% endblock %}</title>
+  <title>{% block title %}{{ page_title }}{% endblock %}</title>
+  <link rel="canonical" href="https://cjdswe.dev{{ request.path }}">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_description }}">
+  <meta property="og:url" content="https://cjdswe.dev{{ request.path }}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://cjdswe.dev{% static 'cameron-hero.jpg' %}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+  <link rel="icon" href="{% static 'favicon.ico' %}" sizes="32x32">
+  <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}" sizes="180x180">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+  <script src="{% static 'js/nav.js' %}" defer></script>
 </head>
 <body class="{% block body_class %}{% endblock %}">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -22,7 +33,9 @@
         <span class="brand-name">Cameron J. Davis</span>
       </a>
 
-      <nav class="site-nav" aria-label="Primary navigation">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
         <a href="{% url 'home' %}#work">Experience</a>
         <a href="{% url 'home' %}#projects">Projects</a>
         <a href="{% url 'home' %}#about">About</a>

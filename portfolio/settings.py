@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
+from django.utils.csp import CSP
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +32,32 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', '.onrender.com', 'cjdswe.dev', 'www.cjdswe.dev']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cjdswe-portfolio.onrender.com', 'cjdswe.dev', 'www.cjdswe.dev']
+
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+# Raise this to one year once HTTPS behavior has been confirmed in production.
+SECURE_HSTS_SECONDS = 0 if DEBUG else 86400
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_PRELOAD = False
+CSRF_TRUSTED_ORIGINS = [] if DEBUG else ['https://cjdswe.dev', 'https://www.cjdswe.dev']
+# The edge already redirects HTTP to HTTPS, so SECURE_SSL_REDIRECT stays unset.
+# Proxy overwriting of X-Forwarded-Proto is unverified, so SECURE_PROXY_SSL_HEADER stays unset.
+
+SECURE_CSP = {
+    'default-src': [CSP.SELF],
+    'script-src': [CSP.SELF],
+    # Django's admin/change_list.html has a conditional inline style block with
+    # no nonce support; adding a nonce requires a template override outside this scope.
+    'style-src': [CSP.SELF, 'https://fonts.googleapis.com', CSP.UNSAFE_INLINE],
+    'font-src': ['https://fonts.gstatic.com'],
+    'img-src': [CSP.SELF, 'https://cdn.jsdelivr.net', 'data:'],
+    'connect-src': [CSP.SELF],
+    'frame-ancestors': [CSP.NONE],
+    'base-uri': [CSP.SELF],
+    'form-action': [CSP.SELF],
+    'object-src': [CSP.NONE],
+}
 
 
 # Application definition
@@ -48,6 +74,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.csp.ContentSecurityPolicyMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,9 +108,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# Reads DATABASE_URL from the environment if a managed Postgres instance is
-# configured. Falls back to local sqlite when it's not set (local dev, and
-# currently also production — see TODO.md on the sqlite-on-Render tradeoff).
+# Production uses SQLite on Render unless DATABASE_URL is set, and its data is rebuilt from migrations on each deploy.
 DATABASES = {
     'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
 }
