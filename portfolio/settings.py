@@ -139,4 +139,6 @@ STORAGES = {
 }
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR
+# Uploads live in their own folder. This must never be BASE_DIR: urls.py serves
+# everything under MEDIA_ROOT publicly at /media/.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

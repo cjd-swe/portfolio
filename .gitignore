@@ -18,6 +18,9 @@ db.sqlite3
 # collectstatic output (build artifact — regenerated on deploy, not source)
 /static/
 
+# Uploaded media (created by the seed migration / admin uploads, not source)
+/media/
+
 # OS
 .DS_Store
 
